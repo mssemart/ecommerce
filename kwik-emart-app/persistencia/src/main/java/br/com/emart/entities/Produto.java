@@ -10,12 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "produto")
-@NamedQuery(name = "Produto.findByActive", query = "from Produto p where p.ativo = true")
+@NamedQueries({
+	@NamedQuery(name = "Produto.findByActive",  query = "from Produto p where p.ativo = true"),
+	@NamedQuery(name = "Produto.findByShowCase",query = "from Produto p where p.ativo = true and (p.destaque = true or p.promocao = true)"),
+	@NamedQuery(name = "Produto.findByKeyWord", query = "from Produto p where p.ativo = true and LOWER(p.palavraChave) like LOWER(?1)")
+})
+
 public class Produto implements Serializable {
 	/**
 	 * 
@@ -42,20 +48,16 @@ public class Produto implements Serializable {
 	@Column(name = "valor_promocao")
 	private BigDecimal valorPromocao;
 
-	@Column(name = "diretorio_imagem")
-	private String diretorioImagem;
+	@Column(name = "palavra_chave")
+	private String palavraChave;
+	
+	private String imagem;
 
 	private boolean ativo;
 
 	private boolean destaque;
 
 	private boolean promocao;
-
-	@Column(name = "data_inicio_promocao")
-	private Date dataInicioPromocao;
-
-	@Column(name = "data_fim_promocao")
-	private Date dataFimPromocao;
 
 	@Column(name = "data_criacao")
 	private Date dataCriacao;
@@ -122,13 +124,13 @@ public class Produto implements Serializable {
 	public void setValorPromocao(BigDecimal valorPromocao) {
 		this.valorPromocao = valorPromocao;
 	}
-
-	public String getDiretorioImagem() {
-		return diretorioImagem;
+	
+	public String getImagem() {
+		return imagem;
 	}
 
-	public void setDiretorioImagem(String diretorioImagem) {
-		this.diretorioImagem = diretorioImagem;
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 
 	public boolean isAtivo() {
@@ -155,22 +157,6 @@ public class Produto implements Serializable {
 		this.promocao = promocao;
 	}
 
-	public Date getDataInicioPromocao() {
-		return dataInicioPromocao;
-	}
-
-	public void setDataInicioPromocao(Date dataInicioPromocao) {
-		this.dataInicioPromocao = dataInicioPromocao;
-	}
-
-	public Date getDataFimPromocao() {
-		return dataFimPromocao;
-	}
-
-	public void setDataFimPromocao(Date dataFimPromocao) {
-		this.dataFimPromocao = dataFimPromocao;
-	}
-
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
@@ -193,6 +179,16 @@ public class Produto implements Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	
+	
+	public String getPalavraChave() {
+		return palavraChave;
+	}
+
+	public void setPalavraChave(String palavraChave) {
+		this.palavraChave = palavraChave;
 	}
 
 	@Override

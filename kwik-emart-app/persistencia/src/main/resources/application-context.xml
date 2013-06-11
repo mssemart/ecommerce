@@ -3,17 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd" >
-
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+        
     <!-- Indica ao spring que as configurações dos beans são por anotações -->
+ 	<cache:annotation-driven />
+    
     <context:annotation-config/>
 
-	<context:component-scan base-package="br.com.emart.repository">
+	<context:component-scan base-package="br.com.emart">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>		
 
+ 	
     <!--suppress UnparsedCustomBeanInspection -->
     <jpa:repositories base-package="br.com.emart.repository"/>
 
@@ -35,7 +40,16 @@
         </property>
     </bean>
 
-     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+	 	<property name="cacheManager"><ref local="ehcache"/></property>
+	</bean>
+ 
+	<!-- Ehcache library setup -->
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+	</bean>	
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost/emart"/>
         <property name="username" value="root"/>

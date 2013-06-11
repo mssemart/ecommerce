@@ -27,7 +27,6 @@ public class CategoriaIntegrationTest {
 
 		categoria.setNome("Eletronico");
 		categoria.setDescricao("Eletronicos");
-		categoria.setAtivo(true);
 
 		categoria = repository.save(categoria);
 
@@ -44,38 +43,4 @@ public class CategoriaIntegrationTest {
 		assertTrue(categorias.size()>0);
 
 	}
-
-	@Test
-	public void testfindByActive() {
-
-		List<Categoria> categorias = (List<Categoria>) repository
-				.findByActive();
-
-		assertNotNull(categorias);
-		assertTrue(categorias.size() > 0);
-	}
-
-	/*
-	 * Valida a falha de uma categoria inativa, pesquisandos as categorias
-	 * ativas e validando se ela contem nesta lista
-	 */
-	@Test
-	public void testfindByActiveFail() {
-
-		Categoria categoria = new Categoria();
-
-		categoria.setNome("Informatica");
-		categoria.setDescricao("Informatica");
-		categoria.setAtivo(false);
-
-		categoria = repository.save(categoria);
-
-		List<Categoria> categorias = (List<Categoria>) repository.findByActive();
-
-		assertNotNull(categorias);
-
-		// Valida que a categoria nao veio na lista
-		assertTrue(!categorias.contains(categoria));
-	}
-
 }

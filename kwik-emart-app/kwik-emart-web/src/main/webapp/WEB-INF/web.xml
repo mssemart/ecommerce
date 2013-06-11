@@ -18,13 +18,14 @@
 				<param-name>contextConfigLocation</param-name>
 				<param-value>
 					/WEB-INF/spring-context.xml
+					classpath*:application-context.xml
 				</param-value>
 			</init-param>        
 			<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring-servlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
     
 </web-app>

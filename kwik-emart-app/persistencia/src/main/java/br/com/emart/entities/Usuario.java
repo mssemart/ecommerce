@@ -11,11 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
+@NamedQuery(name = "Usuario.findByEmail", query = "from Usuario u where LOWER(u.email) = LOWER(?1)")
 public class Usuario implements Serializable {
 	/**
 	 * 
@@ -40,12 +42,6 @@ public class Usuario implements Serializable {
 	@Column(name = "tipo_usuario")
 	private int tipoUsuario;
 
-	@Column(name = "data_criacao")
-	private Date dataCriacao;
-
-	@Column(name = "data_ultimo_acesso")
-	private Date dataUltimoAcesso;
-
 	@OneToMany(mappedBy = "usuario", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	private Collection<Endereco> enderecos;
 
@@ -69,14 +65,6 @@ public class Usuario implements Serializable {
 		return tipoUsuario;
 	}
 
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public Date getDataUltimoAcesso() {
-		return dataUltimoAcesso;
-	}
-
 	public void setCodigoUsuario(Long codigoUsuario) {
 		this.codigoUsuario = codigoUsuario;
 	}
@@ -97,13 +85,6 @@ public class Usuario implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public void setDataUltimoAcesso(Date dataUltimoAcesso) {
-		this.dataUltimoAcesso = dataUltimoAcesso;
-	}
 
 	public String getTelefone() {
 		return telefone;

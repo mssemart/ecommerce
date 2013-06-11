@@ -37,7 +37,7 @@ public class ProdutoIntegrationTest {
 		produto.setValorUnitario(new BigDecimal(900.00));
 		produto.setValorCusto(new BigDecimal(850.00));
 		produto.setValorPromocao(new BigDecimal(0.00));
-		produto.setDiretorioImagem("/img/4077.jpg");
+		produto.setImagem("4077.jpg");
 		produto.setAtivo(true);
 		produto.setDestaque(true);
 		produto.setPromocao(false);
@@ -61,12 +61,10 @@ public class ProdutoIntegrationTest {
 		produto.setValorUnitario(new BigDecimal(1500.00));
 		produto.setValorCusto(new BigDecimal(1300.00));
 		produto.setValorPromocao(new BigDecimal(1450.00));
-		produto.setDiretorioImagem("/img/4075.jpg");
+		produto.setImagem("4075.jpg");
 		produto.setAtivo(true);
 		produto.setDestaque(true);
 		produto.setPromocao(true);
-		produto.setDataInicioPromocao(new java.util.Date());
-		produto.setDataFimPromocao(new java.util.Date());
 		produto.setDataCriacao(new java.util.Date());
 		produto.setDataUltimaAtualizacao(new java.util.Date());
 
@@ -102,12 +100,10 @@ public class ProdutoIntegrationTest {
 		produto.setValorUnitario(new BigDecimal(1700.00));
 		produto.setValorCusto(new BigDecimal(1000.00));
 		produto.setValorPromocao(new BigDecimal(0.00));
-		produto.setDiretorioImagem("/img/4066.jpg");
+		produto.setImagem("4066.jpg");
 		produto.setAtivo(false);
 		produto.setDestaque(false);
 		produto.setPromocao(true);
-		produto.setDataInicioPromocao(new java.util.Date());
-		produto.setDataFimPromocao(new java.util.Date());
 		produto.setDataCriacao(new java.util.Date());
 		produto.setDataUltimaAtualizacao(new java.util.Date());
 
@@ -134,12 +130,10 @@ public class ProdutoIntegrationTest {
 		produto.setValorUnitario(new BigDecimal(1700.00));
 		produto.setValorCusto(new BigDecimal(1000.00));
 		produto.setValorPromocao(new BigDecimal(0.00));
-		produto.setDiretorioImagem("/img/4066.jpg");
+		produto.setImagem("4066.jpg");
 		produto.setAtivo(false);
 		produto.setDestaque(false);
 		produto.setPromocao(true);
-		produto.setDataInicioPromocao(new java.util.Date());
-		produto.setDataFimPromocao(new java.util.Date());
 		produto.setDataCriacao(new java.util.Date());
 		produto.setDataUltimaAtualizacao(new java.util.Date());
 		
@@ -149,6 +143,15 @@ public class ProdutoIntegrationTest {
 				
 		assertEquals(produto, repository.findOne(produto.getCodigoProduto()));
 
+	}
+
+	@Test
+	public void findByKeyWord() {
+
+		List<Produto> produtos = (List<Produto>) repository.findByKeyWord("%15 Kg%");
+
+		assertNotNull(produtos);
+		assertTrue(produtos.size() > 0);
 	}
 	
 	

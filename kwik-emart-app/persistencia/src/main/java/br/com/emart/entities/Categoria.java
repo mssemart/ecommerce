@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categoria")
-@NamedQuery(name = "Categoria.findByActive", query = "from Categoria c where c.ativo = true")
+@NamedQuery(name = "Categoria.list", query = "from Categoria c")
 public class Categoria implements Serializable {
 	/**
 	 * 
@@ -30,7 +30,6 @@ public class Categoria implements Serializable {
 
 	private String nome;
 	private String descricao;
-	private boolean ativo;
 
 	@OneToMany(mappedBy = "categoria", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	private Collection <Produto> produtos;	
@@ -53,10 +52,6 @@ public class Categoria implements Serializable {
 		return descricao;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
-	}
-
 	public void setCodigoCategoria(Long codigoCategoria) {
 		this.codigoCategoria = codigoCategoria;
 	}
@@ -69,10 +64,6 @@ public class Categoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-	
 	public Collection<Produto> getProdutos() {
 		return produtos;
 	}

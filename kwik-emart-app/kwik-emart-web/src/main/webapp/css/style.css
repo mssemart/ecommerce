@@ -589,6 +589,10 @@ div.utilities p {
 	text-shadow: 0 1px 0 #a7861b;
 }
 
+div.utilities a {
+	color:#ffffff; z-index:500
+}
+
 
 /************************************************************************************
 Media queries

@@ -38,8 +38,6 @@ public class UsuarioIntegrationTest {
 		usuario.setEmail("jose@gmail.com");
 		usuario.setSenha("123456");
 		usuario.setTipoUsuario(1);
-		usuario.setDataCriacao(new java.util.Date());
-		usuario.setDataUltimoAcesso(new java.util.Date());
 		
 		Endereco endereco = new Endereco();
 
@@ -97,8 +95,7 @@ public class UsuarioIntegrationTest {
 		usuario.setEmail("maria@gmail.com");
 		usuario.setSenha("59685");
 		usuario.setTipoUsuario(1);
-		usuario.setDataCriacao(new java.util.Date());
-		usuario.setDataUltimoAcesso(new java.util.Date());
+
 
 		usuario = repository.save(usuario);
 		List<Usuario> usuarios = (List<Usuario>) repository.findAll();
